@@ -4,7 +4,9 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<BookAuthor> BookAuthor { get; set; }
+
+        public Book Book { get; set; }
+       
        
     }
 }
