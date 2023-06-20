@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
+
 
 namespace WebApplication1.Data
 {
@@ -15,7 +15,7 @@ namespace WebApplication1.Data
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Library;Trusted_Connection=true;TrustServerCertificate=true;");
         }
-        public DbSet<Author> authors { get; set; }
+       
         public DbSet<Book> books { get; set; }
         public DbSet<FieldKnowledge> fieldKnowledges { get; set; }
         public DbSet<InventoryNumber> inventoryNumbers { get; set; }
@@ -23,5 +23,7 @@ namespace WebApplication1.Data
         public DbSet<Publishment> publishments { get; set; }
         public DbSet<Reader> readers { get; set; }
         public DbSet<Сomposition> compositions { get; set; }
+
+        public DbSet<Feedback> feedbacks { get; set; }
     }
 }

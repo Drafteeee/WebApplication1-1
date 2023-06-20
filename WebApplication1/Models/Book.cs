@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Models
+﻿using System.Text.Json.Serialization;
+
+namespace WebApplication1.Models
 {
     public class Book
     {
@@ -6,9 +8,8 @@
         public string name { get; set; }
         public int date { get; set; }
 
-        public string Author { get; set; }
-         
-        
+        [JsonIgnore]
+        public List<Feedback> Feedbacks { get; set;}
 
     }
 }

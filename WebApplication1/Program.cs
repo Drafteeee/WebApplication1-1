@@ -21,6 +21,7 @@ namespace WebApplication1
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddScoped<IBookService, BookServices>();
+            builder.Services.AddScoped<IFeed,Feed>();
             var app = builder.Build();
 
             
