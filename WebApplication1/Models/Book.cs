@@ -8,8 +8,7 @@ namespace WebApplication1.Models
         public string name { get; set; }
         public int date { get; set; }
 
-        [JsonIgnore]
-        public List<Feedback> Feedbacks { get; set;}
+        
 
     }
 }

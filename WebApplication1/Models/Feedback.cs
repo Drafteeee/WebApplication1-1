@@ -9,8 +9,8 @@ namespace WebApplication1.Models
 
         public string Field { get; set; }
 
-        [JsonIgnore]
-        public List<Book> Books { get;}
+        
+        
 
     }
 }
