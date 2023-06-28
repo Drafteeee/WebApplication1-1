@@ -9,7 +9,8 @@ namespace WebApplication1.Models
 
         public string Field { get; set; }
 
-        
+        [JsonIgnore]
+        public Book Book { get; set; }
         
 
     }

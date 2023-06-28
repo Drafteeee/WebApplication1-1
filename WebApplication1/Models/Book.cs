@@ -4,11 +4,12 @@ namespace WebApplication1.Models
 {
     public class Book
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string name { get; set; }
         public int date { get; set; }
 
-        
+       
+        public List<Feedback> feedbacks { get; set;}
 
     }
 }
