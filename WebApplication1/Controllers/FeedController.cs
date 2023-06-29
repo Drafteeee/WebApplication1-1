@@ -13,58 +13,58 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class FeedController : ControllerBase
     {
-        private readonly DataContext _context;
 
-        public FeedController(DataContext context)
+        private readonly IFeedServices _feedServices;
+
+        public FeedController(IFeedServices feedServices)
         {
-            _context = context;
+            _feedServices = feedServices;
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<List<Book>>> AddFeedBack(BookDto request, int id)
-        {
-            var book = await _context.books.FirstOrDefaultAsync(b => b.Id == id);
+        
 
-            if (book == null)
+        [HttpPost("{id}")]
+        public async Task<ActionResult<List<Feedback>>?> AddFeedBack(BookDto request, int id)
+        {
+            var result = await _feedServices.AddFeedBack(request, id);
+
+            if (result == null)
             {
+
                 return NotFound("Doesnt exist");
             }
 
-            var feedback = request.Feedback.Select(f => new Feedback {Username = f.Username, Field = f.Description, Book = book}).ToList();
-
-            book.feedbacks = feedback;
-
-            _context.feedbacks.AddRange(feedback);
-            await _context.SaveChangesAsync();
-
-            return Ok(feedback);
+            return Ok(result);
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Book>>> GetFeedBack( int id)
+        public async Task<ActionResult<Book>?> GetFeedBack( int id)
         {
-            var book = await _context.books.Include(b => b.feedbacks).FirstOrDefaultAsync(b => b.Id == id);
+            var result = await _feedServices.GetFeedBack(id);
 
-            
-
-            return Ok(book);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Feedback>>> DeleteFeedBack(int id)
-        {
-            var feedback = await _context.feedbacks.FindAsync(id);
-            if (feedback == null)
+            if (result == null)
             {
 
                 return NotFound("Doesnt exist");
             }
 
-            _context.feedbacks.Remove(feedback);
-            await _context.SaveChangesAsync();
+            return Ok(result);
+        }
 
-            return Ok(feedback);
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Feedback>>?> DeleteFeedBack(int id)
+        {
+            var result = await _feedServices.DeleteFeedBack(id);
+            if (result == null)
+            {
+
+                return NotFound("Doesnt exist");
+            }
+
+            
+
+            return Ok(result);
         }
 
     }

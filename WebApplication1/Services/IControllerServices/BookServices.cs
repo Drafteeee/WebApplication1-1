@@ -42,7 +42,7 @@ namespace WebApplication1.Services.IControllerServices
         public async Task<List<Book>> GetAllBooks()
         {
             
-            var books = await _context.books.Include(b =>b.feedbacks).ToListAsync();
+            var books = await _context.books.ToListAsync();
             return books;
         }
 

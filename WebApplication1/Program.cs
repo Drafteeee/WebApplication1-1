@@ -50,7 +50,7 @@ namespace WebApplication1
 
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddScoped<IBookService, BookServices>();
-            builder.Services.AddScoped<IFeed, Feed>();
+            builder.Services.AddScoped<IFeedServices, FeedServices>();
             var app = builder.Build();
 
 
