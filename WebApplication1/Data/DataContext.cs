@@ -17,13 +17,11 @@ namespace WebApplication1.Data
         }
        
         public DbSet<Book> books { get; set; }
-        public DbSet<FieldKnowledge> fieldKnowledges { get; set; }
-        public DbSet<InventoryNumber> inventoryNumbers { get; set; }
-        public DbSet<PlacePublication> placePublications { get; set; }
-        public DbSet<Publishment> publishments { get; set; }
-        public DbSet<Reader> readers { get; set; }
-        public DbSet<Сomposition> compositions { get; set; }
-
+        
+        public DbSet<Author> authors { get; set; }
+       
+        
+        public DbSet<Ganre> ganre { get; set; } 
         public DbSet<Feedback> feedbacks { get; set; }
     }
 }

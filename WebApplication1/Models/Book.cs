@@ -11,5 +11,9 @@ namespace WebApplication1.Models
        
         public List<Feedback> feedbacks { get; set;}
 
+        public List<Author> author { get; set; }
+
+        public List<Ganre> ganres { get; set;}
+
     }
 }

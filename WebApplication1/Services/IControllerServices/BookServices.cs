@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.DTOs;
 
 namespace WebApplication1.Services.IControllerServices
 {
@@ -15,12 +16,24 @@ namespace WebApplication1.Services.IControllerServices
 
 
 
-        public async Task<List<Book>> AddBooks(Book book)
+        public async Task<List<Book>> AddBooks(BookDto request)
         {
+            var book = new Book{ 
+            
+               name = request.Name,
+            
+            };
+
+            var author = request.Authors.Select(a => new Author { Name = a.Name, Books = new List<Book> { book } }).ToList();
+            var ganre = request.Ganres.Select(a => new Ganre { Name = a.Name, Books = new List<Book> { book } }).ToList();
+
+            book.author = author;
+            book.ganres= ganre;
+
 
             _context.books.Add(book);
             await _context.SaveChangesAsync();
-            return await _context.books.ToListAsync();
+            return await _context.books.Include(b => b.author).Include(b=> b.ganres).ToListAsync();
         }
 
         public async Task<List<Book>?> DelBooks(int id)
@@ -42,14 +55,14 @@ namespace WebApplication1.Services.IControllerServices
         public async Task<List<Book>> GetAllBooks()
         {
             
-            var books = await _context.books.ToListAsync();
+            var books = await _context.books.Include(b=> b.author).Include(b=>b.ganres).ToListAsync();
             return books;
         }
 
         public async Task<Book?> GetOneBooks(int id)
         {
 
-            var book =await _context.books.FindAsync(id);
+            var book = await _context.books.Include(b => b.author).Include(b => b.ganres).FirstOrDefaultAsync(b =>b.Id == id);
             if (book == null)
             {
 

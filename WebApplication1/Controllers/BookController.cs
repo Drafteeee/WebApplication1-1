@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.DTOs;
 using WebApplication1.Services.IControllerServices;
 
 namespace WebApplication1.Controllers
@@ -44,9 +45,9 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<List<Book>>> AddBooks(Book book)
+        public async Task<ActionResult<List<Book>>> AddBooks(BookDto request)
         {
-            var result = await _bookService.AddBooks(book);
+            var result = await _bookService.AddBooks(request);
 
             return Ok(result);
 
