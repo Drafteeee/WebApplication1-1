@@ -51,6 +51,7 @@ namespace WebApplication1
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddScoped<IBookService, BookServices>();
             builder.Services.AddScoped<IFeedServices, FeedServices>();
+            builder.Services.AddScoped<IInventoryServices, InventoryServices>();
             var app = builder.Build();
 
 

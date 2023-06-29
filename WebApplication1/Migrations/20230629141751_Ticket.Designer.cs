@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Data;
 
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230629141751_Ticket")]
+    partial class Ticket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +55,21 @@ namespace WebApplication1.Migrations
                     b.ToTable("BookGanre");
                 });
 
+            modelBuilder.Entity("BookInventory", b =>
+                {
+                    b.Property<int>("BooksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("inventoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BooksId", "inventoryId");
+
+                    b.HasIndex("inventoryId");
+
+                    b.ToTable("BookInventory");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -77,9 +95,6 @@ namespace WebApplication1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("InventoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("date")
                         .HasColumnType("int");
 
@@ -88,8 +103,6 @@ namespace WebApplication1.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("InventoryId");
 
                     b.ToTable("books");
                 });
@@ -170,8 +183,8 @@ namespace WebApplication1.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Time")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -208,11 +221,19 @@ namespace WebApplication1.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.Book", b =>
+            modelBuilder.Entity("BookInventory", b =>
                 {
+                    b.HasOne("WebApplication1.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApplication1.Models.Inventory", null)
-                        .WithMany("Books")
-                        .HasForeignKey("InventoryId");
+                        .WithMany()
+                        .HasForeignKey("inventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Feedback", b =>
@@ -240,11 +261,6 @@ namespace WebApplication1.Migrations
             modelBuilder.Entity("WebApplication1.Models.Book", b =>
                 {
                     b.Navigation("feedbacks");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.Inventory", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

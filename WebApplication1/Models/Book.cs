@@ -15,5 +15,7 @@ namespace WebApplication1.Models
 
         public List<Ganre> ganres { get; set;}
 
+        
+
     }
 }

@@ -20,7 +20,8 @@ namespace WebApplication1.Data
         
         public DbSet<Author> authors { get; set; }
        
-        
+        public DbSet<Inventory> inventory { get; set; }
+        public DbSet<Ticket> ticket { get; set; }
         public DbSet<Ganre> ganre { get; set; } 
         public DbSet<Feedback> feedbacks { get; set; }
     }
