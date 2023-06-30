@@ -30,18 +30,6 @@ namespace WebApplication1.Controllers
             return Ok(result);
         }
 
-        [HttpPost("{i}, {a}")]
-        public async Task<ActionResult<List<Inventory>?>> AddToInventory(int i, int a)
-        {
-            var result = await _inventoryServices.AddToInventory(i, a);
-
-            if (result == null)
-            {
-
-                return NotFound("Doesnt exist");
-            }
-
-            return Ok(result);
-        }
+        
     }
 }
